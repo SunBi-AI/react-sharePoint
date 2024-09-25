@@ -1,17 +1,22 @@
-import NewPost from './NewPost'
 import Post from './Post'
 import classes from './Postlists.module.css'
-import React from 'react'
+import { useLoaderData } from 'react-router-dom'
 
 const PostLists = () => {
+
+ const posts =  useLoaderData();
+
   return (
     <>
-      <NewPost />
+      {posts.length > 0 && <ul className={classes.posts}>
+        {posts.map((post) => <Post key={post.body} author = {post.author} body={post.body} /> )}
+      </ul>}
 
-      <ul className={classes.posts}>
-        <Post author="Sherlock Holmes" body="Reknowed ancc fncck memener is solo player"/>
-        <Post author="Annola Holmes" body="Check the full course at new location" />
-      </ul>
+      {posts.length === 0 && 
+        <div style={{textAlign: 'center' , color: 'purple'}}>
+          <h2>There are no posts yet.</h2>
+          <p>Start adding some!!</p>
+        </div>}
     </>
   )
 }
