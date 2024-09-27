@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import RootLayout from './routes/RootLayout';
 import NewPost, {action as newpostAction} from './routes/NewPost';
+import PostDetails, {loader as postDetailsLoader} from './routes/PostDetails';
 
 
 const router = createBrowserRouter([
@@ -14,13 +15,18 @@ const router = createBrowserRouter([
     children: [
       { path: '/', 
         element: <Posts/>, 
+
+        //use loader to fetchd data before the route renders to pre-load necessary data for a component
         loader: postsLoader,
 
         children: [
-        { path: '/create-post', 
+        { path: 'create-post', 
           element: <NewPost/>,
+
+          //action prop is tied to form submissions or interations like posting data to the server.
           action: newpostAction,
         },
+        {path: '/:id', element: <PostDetails/>, loader: postDetailsLoader}
     ]}, //our-domain
   ]},
 ]);

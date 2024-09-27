@@ -12,7 +12,7 @@ const NewPost = ({ onAddPost}) => {
         <Form className={classes.form} method="post">
             <p>
                 <label htmlFor="body" className={classes.label}>Text</label>
-                <textarea id="body" name="body" required rows={3} ></textarea>
+                <textarea id="body" name="body" required rows={3}></textarea>
             </p>
 
             <p>
@@ -34,7 +34,7 @@ export default NewPost
 
 export async function action({request}) {
   const formData = await request.formData();
-  const postData = Object.fromEntries(formData);
+  const postData = Object.fromEntries(formData); //{body: '...', author: '....'}
 
   await fetch('http://localhost:8080/posts', {
     method: 'POST',
